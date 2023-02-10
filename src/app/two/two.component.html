@@ -1,0 +1,23 @@
+<div class="score">
+    <h1>Score</h1><br>
+    <div class="scoreboard">
+        <div class="x-score">
+            X: {{xScore}} 
+        </div>
+        <div class="o-score">
+        O: {{oScore}}
+        </div>
+    </div>
+</div>
+
+<div class="turn-display">
+  Kullanıcı: {{currentTurn}}
+</div>
+
+<table>
+  <tr *ngFor="let row of board; let i = index">
+    <td *ngFor="let cell of row; let j = index" (click)="playTurn(i, j)">
+      {{cell}}
+    </td>
+  </tr>
+</table>

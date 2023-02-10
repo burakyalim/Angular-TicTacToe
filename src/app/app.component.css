@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(252, 246, 223);
+}
+.header {
+    margin-top: 50px;
+    font-size: 36px;
+    font-weight: bold;
+}
+.game-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.ch {
+    font-size: 25px;
+    text-decoration: none;
+    color: #fcF6DF;
+    background-color: #3D5549;
+    border-radius: 4px;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 1);
+    text-align: center;
+    display: inline-block;
+    margin-right: 20px;
+}
+.ch:hover {
+    color: rgb(0, 200, 205);
+    background-color: #547263;  
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 1);
+}
+ 
