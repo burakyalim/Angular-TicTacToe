@@ -102,24 +102,67 @@ export class OneComponent {
       this.turn = this.checkWin('X') ? 'X' : (this.checkWin('O') ? 'O' : 'X');
     }
 
-  computerPlay(){
-    let row = Math.floor(Math.random() * 3);
-    let col = Math.floor(Math.random() * 3);
-    while (this.board[row][col] !== ''){
-      row = Math.floor(Math.random() * 3);
-      col = Math.floor(Math.random() * 3);
-    }
-    this.board[row][col] = 'O';
-    if (this.checkWin('O')){
-      alert('O kazandı! Bir daha oynamak ister misin?');
-      this.resetBoard();
-    } else if (this.isDraw()){
-      alert('Beraberlik! Bir daha oynamak ister misin?');
-      this.resetBoard();
-      } else{
-          this.turn = 'X';
+    computerPlay() {
+      let bestScore = -Infinity;
+      let move: [number, number] = [-1, -1];
+    
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (this.board[row][col] === '') {
+            this.board[row][col] = 'O';
+            let score = this.minimax(0, false);
+            this.board[row][col] = '';
+    
+            if (score > bestScore) {
+              bestScore = score;
+              move = [row, col];
+            }
+          }
         }
-  }
+      }
+    
+      this.board[move[0]][move[1]] = 'O';
+    
+      if (this.checkWin('O')) {
+        alert('O kazandı! Bir daha oynamak ister misin?');
+        this.resetBoard();
+      } else if (this.isDraw()) {
+        alert('Beraberlik! Bir daha oynamak ister misin?');
+        this.resetBoard();
+      } else {
+        this.turn = 'X';
+      }
+    }
+    
+    minimax(depth: number, isMaximizing: boolean): number {
+      if (this.checkWin('X')) {
+        return -10 + depth;
+      } else if (this.checkWin('O')) {
+        return 10 - depth;
+      } else if (this.isDraw()) {
+        return 0;
+      }
+    
+      let bestScore = isMaximizing ? -Infinity : Infinity;
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (this.board[row][col] === '') {
+            this.board[row][col] = isMaximizing ? 'O' : 'X';
+            let score = this.minimax(depth + 1, !isMaximizing);
+            this.board[row][col] = '';
+    
+            if (isMaximizing) {
+              bestScore = Math.max(bestScore, score);
+            } else {
+              bestScore = Math.min(bestScore, score);
+            }
+          }
+        }
+      }
+    
+      return bestScore;
+    }
+    
 
 
 
